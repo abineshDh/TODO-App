@@ -99,7 +99,7 @@ class TaskApp:
             return redirect(url_for('add_task'))  # Redirect to the main page
 
     def run(self):
-        self.app.run(debug=True, port=5000)
+        self.app.run()
 
 if __name__ == '__main__':
     TaskApp().run()
