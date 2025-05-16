@@ -1,0 +1,121 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> {% block title %} Flask TODO App{% endblock %} </title>
+    <style>
+        .error { color: red; }
+        .success { color: green; }
+        .task_done{text-decoration: line-through; color: gray;}
+        .info{ color: skyblue;}
+        .todo-container{
+            width: 750px;
+            min-height: auto;
+            margin: 0 auto;
+            background-color: #f8f9fa;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #eee;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 
+            Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Inheriting base template to be rendered -->
+    {% extends 'base.html' %}
+
+    <!-- flask (TODO) app to be executed in this block -->
+    {% block body %}
+    <div class="todo-container d-flex justify-content-center align-items-start" style="min-height: 100vh;"> 
+        <div class="formgroup container mt-3 mb-2">
+            <h2 class="text-center">TO-DO LIST</h2>
+            <hr>
+            <div class="mb-2">
+                <form action="/" method="POST">
+                <!-- Add Task -->
+                <label for="add_task" class="form-label text-center text-body fw-bold">Add Task</label>
+                <input
+                    type="text"
+                    name="task"
+                    class="form-control"
+                    placeholder="Enter Task..."
+                />
+                <br>
+                    <!-- Submit Button -->
+                    <button
+                        type="submit"
+                        class="btn btn-success"
+                    >
+                        Submit
+                    </button>
+                    <!-- Reset Button -->
+                    <button
+                        type="reset"
+                        class="btn btn-danger "
+                    >
+                        Reset
+                    </button>
+                    <!-- Clear All -->
+                    <a href="{{ url_for('clear_task')}}" 
+                        class="btn btn-outline-secondary"
+                        onclick="return confirm('Sure about clear all tasks?');"> 
+                        Clear All
+                    </a>
+                </form>
+
+                <!-- flash messages -->
+                <div class="container mt-2">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }} mt-2" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                </div>
+
+                <!-- Iterate through tasklist to display task items -->
+                {% for task_id, task_data in tasks.items() %}
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center mt-1 ms-2 bg-body-secondary">
+                            <!-- Task content -->
+                            <div class="{% if task_data.done %} task_done {% endif %}">
+                                <span
+                                    class="badge bg-body-tertiary text-black"
+                                    >{{ task_data.timestamp }}</span
+                                >
+                                
+                                {{ task_data.task }}
+                            </div>
+                            <!-- Mark as Done button -->
+                            <div>
+                                <a href="{{ url_for('mark_done', task_id=task_id) }}" class="btn btn-sm {% if task_data.done %}btn-info{% else %}btn-success{% endif %}">
+                                    {% if task_data.done %} Undo {% else %} Done {% endif %}
+                                </a>
+                                <!-- Delete button -->
+                                <a href="{{ url_for('delete_task', task_id=task_id) }}" class="btn btn-sm btn-danger">
+                                    Delete
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+</body>
+</html>
+
+
