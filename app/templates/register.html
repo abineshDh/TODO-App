@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Register{% endblock %}
+
+{% block body %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm mt-4">
+            <div class="card-header bg-success text-white text-center">
+                <h4>Create Account</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {{ form.hidden_tag() }}
+                    <div class="mb-3">
+                        {{ form.username.label(class="form-label") }}
+                        {{ form.username(class="form-control", placeholder="Choose a username") }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.password.label(class="form-label") }}
+                        {{ form.password(class="form-control", placeholder="Create a password") }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.confirm.label(class="form-label") }}
+                        {{ form.confirm(class="form-control", placeholder="Confirm password") }}
+                    </div>
+                    <div class="d-grid gap-2">
+                        {{ form.register(class="btn btn-success") }}
+                        <a href="{{ url_for('auth.login') }}" class="btn btn-link">Already have an account? Login</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

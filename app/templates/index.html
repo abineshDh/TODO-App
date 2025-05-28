@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Task Dashboard{% endblock %}
+{% block body %}
+<h2 class="mb-4">Welcome, {{ current_user.username }}!</h2>
+
+<form method="POST" action="{{ url_for('main.index') }}">
+  <div class="input-group mb-3">
+    <input name="task" type="text" class="form-control" placeholder="New task...">
+    <button class="btn btn-primary" type="submit">Add Task</button>
+    <a href="{{ url_for('main.clear_tasks') }}" class="btn btn-outline-danger" onclick="return confirm('Clear all your tasks?')">Clear All</a>
+  </div>
+</form>
+
+<ul class="list-group">
+  {% for task in tasks %}
+  <li class="list-group-item d-flex justify-content-between align-items-center {% if task.done %}list-group-item-secondary{% endif %}">
+    <span>
+      {% if task.done %}
+        <del>{{ task.content }}</del>
+      {% else %}
+        {{ task.content }}
+      {% endif %}
+      <small class="text-muted">({{ task.timestamp.strftime('%Y-%m-%d %H:%M') }})</small>
+    </span>
+    <div>
+      <a href="{{ url_for('main.toggle_task', task_id=task.id) }}" class="btn btn-sm {% if task.done %}btn-warning{% else %}btn-success{% endif %}">
+        {% if task.done %}Undo{% else %}Done{% endif %}
+      </a>
+      <a href="{{ url_for('main.delete_task', task_id=task.id) }}" class="btn btn-sm btn-danger">Delete</a>
+    </div>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}
