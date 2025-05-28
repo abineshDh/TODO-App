@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_migrate import Migrate
 from config import Config
+import os
 
 # init. sqlalchemy and login_manager 
 db = SQLAlchemy()
@@ -14,6 +15,7 @@ def create_app():
     # creates flask app instance
     app = Flask(__name__)
     app.config.from_object(Config)
+    app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY", "dev-secret")
     
     # init. extensions with app
     db.init_app(app)
