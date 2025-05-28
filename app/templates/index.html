@@ -6,8 +6,10 @@
 <form method="POST" action="{{ url_for('main.index') }}">
   <div class="input-group mb-3">
     <input name="task" type="text" class="form-control transparent-input" placeholder="New task...">
-    <button class="btn btn-primary" type="submit">Add Task</button>
-    <a href="{{ url_for('main.clear_tasks') }}" class="btn btn-outline-danger" onclick="return confirm('Clear all your tasks?')">Clear All</a>
+    <div class="input-group-append d-flex align-items-stretch">
+      <button class="btn btn-primary px-4" type="submit" style="margin-left: 15px;">Add Task</button>
+      <a href="{{ url_for('main.clear_tasks') }}" class="btn btn-outline-danger px-3 ms-2" style="margin-left: 3px;" onclick="return confirm('Clear all your tasks?')">Clear All</a>
+    </div>
   </div>
 </form>
 

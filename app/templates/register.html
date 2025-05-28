@@ -13,18 +13,18 @@
                     {{ form.hidden_tag() }}
                     <div class="mb-3">
                         {{ form.username.label(class="form-label") }}
-                        {{ form.username(class="form-control", placeholder="Choose a username") }}
+                        {{ form.username(class="form-control transparent-input", placeholder="Choose a username") }}
                     </div>
                     <div class="mb-3">
                         {{ form.password.label(class="form-label") }}
-                        {{ form.password(class="form-control", placeholder="Create a password") }}
+                        {{ form.password(class="form-control transparent-input", placeholder="Create a password") }}
                     </div>
                     <div class="mb-3">
                         {{ form.confirm.label(class="form-label") }}
-                        {{ form.confirm(class="form-control", placeholder="Confirm password") }}
+                        {{ form.confirm(class="form-control transparent-input", placeholder="Confirm password") }}
                     </div>
                     <div class="d-grid gap-2">
-                        {{ form.register(class="btn btn-success", style="border-radius:50px;") }}
+                        {{ form.register(class="btn btn-success", style="border-radius:50px; background-color:black; color:white;") }}
                         <a href="{{ url_for('auth.login') }}" class="btn btn-link">Already have an account? Login</a>
                     </div>
                 </form>
