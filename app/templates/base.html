@@ -3,30 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Todo App{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg">
   <div class="container-fluid">
     <a class="navbar-brand" href="{{ url_for('main.index') }}">Flask Todo</a>
-    <div class="d-flex">
-      {% if current_user.is_authenticated %}
-        <a class="btn btn-outline-light me-2" href="{{ url_for('auth.logout') }}">Logout</a>
-      {% else %}
-        <a class="btn btn-outline-light me-2" href="{{ url_for('auth.login') }}">Login</a>
-        <a class="btn btn-outline-light" href="{{ url_for('auth.register') }}">Register</a>
-      {% endif %}
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <div class="d-flex">
+        {% if current_user.is_authenticated %}
+          <a class="btn btn-outline-dark me-2 mb-2 mb-lg-0" href="{{ url_for('auth.logout') }}">Logout</a>
+        {% else %}
+          <a class="btn btn-outline-dark me-2 mb-2 mb-lg-0" href="{{ url_for('auth.login') }}">Login</a>
+          <a class="btn btn-outline-dark mb-2 mb-lg-0" href="{{ url_for('auth.register') }}">Register</a>
+        {% endif %}
+      </div>
     </div>
   </div>
 </nav>
 <div class="container mt-4">
-    {% with messages = get_flashed_messages(with_categories=true) %}
+    <div class="container text-center">
+      {% with messages = get_flashed_messages(with_categories=true) %}
       {% for category, msg in messages %}
         <div class="alert alert-{{ category }}">{{ msg }}</div>
       {% endfor %}
-    {% endwith %}
+      {% endwith %}
+    </div>
     {% block body %}{% endblock %}
 </div>
+<footer class="footer-pill text-center mt-5  px-4 py-3" style="color:#fff; font-size:1rem;">
+    Developed by <b>Abinesh</b> &mdash;
+    <a href="https://github.com/abineshDh/TODO-App" target="_blank" style="color:#fff; text-decoration:underline;">
+        GitHub
+    </a>
+</footer>
 </body>
 </html>

@@ -57,5 +57,5 @@ def login():
 def logout():
     username = current_user.username
     logout_user()
-    flash(f'Goodbye <b>{username}</b>! See you again', 'info')
+    flash(f'Goodbye {username}! See you again', 'info')
     return redirect(url_for('auth.login', username=username))

@@ -4,8 +4,8 @@
 {% block body %}
 <div class="row justify-content-center">
     <div class="col-md-6">
-        <div class="card shadow-sm mt-4">
-            <div class="card-header bg-success text-white text-center">
+        <div class="card neumorph-card shadow-sm mt-4">
+            <div class="card-header text-white text-center">
                 <h4>Create Account</h4>
             </div>
             <div class="card-body">
@@ -24,7 +24,7 @@
                         {{ form.confirm(class="form-control", placeholder="Confirm password") }}
                     </div>
                     <div class="d-grid gap-2">
-                        {{ form.register(class="btn btn-success") }}
+                        {{ form.register(class="btn btn-success", style="border-radius:50px;") }}
                         <a href="{{ url_for('auth.login') }}" class="btn btn-link">Already have an account? Login</a>
                     </div>
                 </form>
